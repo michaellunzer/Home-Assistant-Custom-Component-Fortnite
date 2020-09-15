@@ -27,10 +27,10 @@ How many times you finish in the:
 This is my first Home-Assistant Custom Component, so it's been a fun learning experience for me contributing to Open Source Software! This wouldn't been possible without the help from @xcodinas for building the fortnite-python library and @clyra helping refine my initial script and idea by further developing it towards a more finished product. From there I've added some extra tweaks, wrote the documentation, and published it in the Home-Assistant Community Store (HACS).
 
 ## Screenshots
-![fortnite-stats-overview-kills-screenshot-img][overview]
-![fortnite-stats-solo-screenshot-img][solo]
-![fortnite-stats-duo-screenshot-img][duo]
-![fortnite-stats-squads-screenshot-img][squads]
+![fortnite-stats-overview-kills-screenshot][fortnite-stats-overview-kills-screenshot-img]
+![fortnite-stats-solo-screenshot][fortnite-stats-solo-screenshot-img]
+![fortnite-stats-duo-screenshot][fortnite-stats-duo-screenshot-img]
+![fortnite-stats-squads-screenshot][fortnite-stats-squads-screenshot-img]
 
 
 ## What?
