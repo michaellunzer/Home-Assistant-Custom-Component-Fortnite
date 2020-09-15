@@ -108,7 +108,7 @@ iPad & iPhone | `TOUCH`
 Nintendo Switch | `GAMEPAD`
 KBM | `KBM`
 
-
+## This custom-component was last tested on version 0.114.3 of Home-Assistant
 
 ## Contributions are welcome!
 
