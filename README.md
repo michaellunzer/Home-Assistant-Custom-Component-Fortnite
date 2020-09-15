@@ -93,7 +93,7 @@ Platform | Description
 `sensor` | Show info from blueprint API.
 `switch` | Switch something `True` or `False`.
 
-![example][exampleimg]
+![fortnite-logo][fortnite-logoimg]
 
 ## Installation
 
