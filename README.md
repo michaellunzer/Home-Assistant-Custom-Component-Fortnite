@@ -22,15 +22,6 @@ This 'fortnite' component is a Home Assistant custom sensor which shows you vari
 ## Why?
 
 It can show you how well you're playing the game with stats like:
-
-How many times you finish in the:
-- Top 1
-- Top 3
-- Top 5
-- Top 6
-- Top 10
-- Top 12
-- Top 25
 - How many kills you've earned
 - Kill/Death Ratio
 - Kills Per Game
@@ -38,6 +29,15 @@ How many times you finish in the:
 - Your Fortnite Score
 - Your Score Earned Per Match
 - Your Win Ratio
+
+And how many times you finish in the:
+- Top 1
+- Top 3
+- Top 5
+- Top 6
+- Top 10
+- Top 12
+- Top 25
 
 ## Purpose
 
