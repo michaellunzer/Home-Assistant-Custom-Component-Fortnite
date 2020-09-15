@@ -22,6 +22,17 @@ How many times you finish in the:
 - Your Score Earned Per Match
 - Your Win Ratio
 
+## Purpose
+
+This is my first Home-Assistant Custom Component, so it's been a fun learning experience for me contributing to Open Source Software! This wouldn't been possible without the help from @xcodinas for building the fortnite-python library and @clyra helping refine my initial script and idea by further developing it towards a more finished product. From there I've added some extra tweaks, wrote the documentation, and published it in the Home-Assistant Community Store (HACS).
+
+## Screenshots
+![fortnite-stats-overview-kills-screenshot-img][overview]
+![fortnite-stats-solo-screenshot-img][solo]
+![fortnite-stats-duo-screenshot-img][duo]
+![fortnite-stats-squads-screenshot-img][squads]
+
+
 ## What?
 
 This repository contains multiple files, here is a overview:
@@ -76,7 +87,7 @@ Platform | Description
 `sensor` | Show info from fortnite API on https://fortnitetracker.com
 `switch` | Switch something `True` or `False`.
 
-![fortnite-logo][fortnite-logoimg]
+![fortnite-logo][fortnite-logo-img]
 
 ## Manual Installation
 
@@ -103,9 +114,9 @@ custom_components/blueprint/sensor.py
 custom_components/blueprint/switch.py
 ```
 ## MANUAL INSTALLATION
-Download the anniversaries.zip file from the latest release.
-Unpack the release and copy the custom_components/anniversaries directory into the custom_components directory of your Home Assistant installation.
-Configure the anniversaries sensor.
+Download the fortnite.zip file from the latest release.
+Unpack the release and copy the custom_components/fortnite directory into the custom_components directory of your Home Assistant installation.
+Configure the fortnite sensor.
 Restart Home Assistant.
 
 ## Installation via HACS
@@ -116,7 +127,7 @@ Restart Home Assistant.
 
 ## Configuration is done in YAML -> `configuration.yaml` 
 
-My username is Captain_Crunch88 and I play on the switch (use "GAMEPAD" in the config) if you want to test out the sensor. You'll need to register for an api key at https://fortnitetracker.com/site-api
+My username is Captain_Crunch88 and I play on the Nintendo Switch (use "GAMEPAD" in the config) if you want to test out the sensor. You'll need to register for an api key at https://fortnitetracker.com/site-api
 
 <!---->
 
@@ -171,10 +182,14 @@ If you want to contribute to this please read the [Contribution guidelines](CONT
 [hacsbadge]: https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge
 [discord]: https://discord.gg/Qa5fW2R
 [discord-shield]: https://img.shields.io/discord/330944238910963714.svg?style=for-the-badge
-[fortnite-logoimg]: custom_components/fortnite/docs/fortnite-logo.png
+[fortnite-logo-img]: custom_components/fortnite/docs/fortnite-logo.png
 [forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg?style=for-the-badge
 [forum]: https://community.home-assistant.io/
 [license-shield]: https://img.shields.io/github/license/michaellunzer/Home-Assistant-Custom-Component-Fortnite.svg?style=for-the-badge
 [maintenance-shield]: https://img.shields.io/badge/maintainer-Michael%20Lunzer%20%40michaellunzer-blue.svg?style=for-the-badge
 [releases-shield]: https://img.shields.io/github/release/michaellunzer/Home-Assistant-Custom-Component-Fortnite.svg?style=for-the-badge
 [releases]: https://github.com/michaellunzer/Home-Assistant-Custom-Component-Fortnite/releases
+[fortnite-stats-overview-kills-screenshot-img]: custom_components/fortnite/docs/Fortnite-Stats-Overview-Kills-Screenshot.png
+[fortnite-stats-solo-screenshot-img]: custom_components/fortnite/docs/Fortnite-Stats-Solo-Screenshot.png
+[fortnite-stats-duo-screenshot-img]: custom_components/fortnite/docs/Fortnite-Stats-Duo-Screenshot.png
+[fortnite-stats-squads-screenshot-img]: custom_components/fortnite/docs/Fortnite-Stats-Squads-Screenshot.png
