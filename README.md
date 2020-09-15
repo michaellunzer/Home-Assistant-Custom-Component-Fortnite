@@ -1,3 +1,20 @@
+# Fortnite Stats Sensors
+
+[![GitHub Release][releases-shield]][releases]
+[![GitHub Activity][commits-shield]][commits]
+[![License][license-shield]](LICENSE)
+
+[![hacs][hacsbadge]][hacs]
+![Project Maintenance][maintenance-shield]
+[![BuyMeCoffee][buymecoffeebadge]][buymecoffee]
+
+[![Discord][discord-shield]][discord]
+[![Community Forum][forum-shield]][forum]
+
+_Component to integrate with [fortnite][fortnite]._
+
+![fortnite-logo][fortnite-logo-img]
+
 # Fortnite Stats
 
 This 'fortnite' component is a Home Assistant custom sensor which shows you various stats accumulated while playing the very popular F2P game, Fortnite Battle Royale. 
@@ -32,62 +49,11 @@ This is my first Home-Assistant Custom Component, so it's been a fun learning ex
 ![fortnite-stats-duo-screenshot][fortnite-stats-duo-screenshot-img]
 ![fortnite-stats-squads-screenshot][fortnite-stats-squads-screenshot-img]
 
-
-## What?
-
-This repository contains multiple files, here is a overview:
-
-File | Purpose
--- | --
-`.devcontainer/*` | Used for development/testing with VSCODE, more info in the readme file in that dir.
-`.github/ISSUE_TEMPLATE/feature_request.md` | Template for Feature Requests
-`.github/ISSUE_TEMPLATE/issue.md` | Template for issues
-`.github/settings.yml` | Probot settings to control the repository settings.
-`.vscode/tasks.json` | Tasks for the devcontainer.
-`custom_components/blueprint/.translations/*` | [Translation files.](https://developers.home-assistant.io/docs/en/next/internationalization_custom_component_localization.html#translation-strings)
-`custom_components/blueprint/__init__.py` | The component file for the integration.
-`custom_components/blueprint/binary_sensor.py` | Binary sensor platform for the integration.
-`custom_components/blueprint/config_flow.py` | Config flow file, this adds the UI configuration possibilities.
-`custom_components/blueprint/const.py` | A file to hold shared variables/constants for the entire integration.
-`custom_components/blueprint/manifest.json` | A [manifest file](https://developers.home-assistant.io/docs/en/creating_integration_manifest.html) for Home Assistant.
-`custom_components/blueprint/sensor.py` | Sensor platform for the integration.
-`custom_components/blueprint/switch.py` | Switch sensor platform for the integration.
-`CONTRIBUTING.md` | Guidelines on how to contribute.
-`docs folder` | Contains screenshots that demonstrate how it might look in the UI.
-`info.md` | An example on a info file (used by [hacs][hacs]).
-`LICENSE` | The license file for the project.
-`README.md` | The file you are reading now, should contain info about the integration, installation and configuration instructions.
-`requirements.txt` | Python packages used by this integration.
-
-
-***
-README content if this was a published component:
-***
-
-# Fortnite Stats Sensors
-
-[![GitHub Release][releases-shield]][releases]
-[![GitHub Activity][commits-shield]][commits]
-[![License][license-shield]](LICENSE)
-
-[![hacs][hacsbadge]][hacs]
-![Project Maintenance][maintenance-shield]
-[![BuyMeCoffee][buymecoffeebadge]][buymecoffee]
-
-[![Discord][discord-shield]][discord]
-[![Community Forum][forum-shield]][forum]
-
-_Component to integrate with [fortnite][fortnite]._
-
 **This component will set up the following platforms.**
 
 Platform | Description
 -- | --
-`binary_sensor` | Show something `True` or `False`.
-`sensor` | Show info from fortnite API on https://fortnitetracker.com
-`switch` | Switch something `True` or `False`.
-
-![fortnite-logo][fortnite-logo-img]
+`sensor` | Show stats pulled from fortnite API on https://fortnitetracker.com
 
 ## Manual Installation
 
