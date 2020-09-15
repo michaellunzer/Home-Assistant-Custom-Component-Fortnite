@@ -1,7 +1,8 @@
 {
   "domain": "fortnite",
-  "name": "Fortnite Sensor",
+  "name": "Fortnite Stats",
   "documentation": "https://github.com/michaellunzer/Home-Assistant-Custom-Component-Fortnite",
+  "issue_tracker": "https://github.com/michaellunzer/Home-Assistant-Custom-Component-Fortnite/issues",
   "dependencies": [],
   "codeowners": ["@michaellunzer", "@clyra"],
   "requirements": [ "fortnite-python==0.3.5"]
