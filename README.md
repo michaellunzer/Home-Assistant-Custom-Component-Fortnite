@@ -17,7 +17,7 @@ _Component to integrate with [fortnite][fortnite]._
 
 # Fortnite Stats
 
-This 'fortnite' component is a Home Assistant custom sensor which shows you various stats accumulated while playing the very popular F2P game, [Fortnite: Battle Royale](Fortnite-Battle-Royale). 
+This 'fortnite' component is a Home Assistant custom sensor which shows you various stats accumulated while playing the very popular F2P game, [Fortnite: Battle Royale](https://www.epicgames.com/fortnite/en-US/home). 
 
 ## Why?
 
@@ -117,7 +117,6 @@ If you want to contribute to this please read the [Contribution guidelines](CONT
 ***
 
 [fortnite]: https://github.com/michaellunzer/Home-Assistant-Custom-Component-Fortnite
-[Fortnite-Battle-Royale]: [https://www.epicgames.com/fortnite/en-US/home]
 [buymecoffee]: https://www.buymeacoffee.com/michaellunzer
 [buymecoffeebadge]: https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg?style=for-the-badge
 [commits-shield]: https://img.shields.io/github/commit-activity/y/michaellunzer/Home-Assistant-Custom-Component-Fortnite.svg?style=for-the-badge
