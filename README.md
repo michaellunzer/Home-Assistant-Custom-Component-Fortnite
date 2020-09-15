@@ -17,7 +17,7 @@ _Component to integrate with [fortnite][fortnite]._
 
 # Fortnite Stats
 
-This 'fortnite' component is a Home Assistant custom sensor which shows you various stats accumulated while playing the very popular F2P game, ![Fortnite: Battle Royale][https://www.epicgames.com/fortnite/en-US/home]. 
+This 'fortnite' component is a Home Assistant custom sensor which shows you various stats accumulated while playing the very popular F2P game, ![https://www.epicgames.com/fortnite/en-US/home][Fortnite: Battle Royale]. 
 
 ## Why?
 
