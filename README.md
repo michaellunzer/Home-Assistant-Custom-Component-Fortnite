@@ -2,23 +2,25 @@
 
 This 'fortnite' component is a Home Assistant custom sensor which shows you various stats accumulated while playing the very popular F2P game, Fortnite Battle Royale. 
 
-It can show you what 
-
-The component and platforms in this repository are not meant to be used by a
-user, but as a "blueprint" that custom component developers can build
-upon, to make more awesome stuff.
-
-This blueprint uses ['sampleclient'](https://github.com/ludeeus/sampleclient) to simulate what you actually might use in your integration.
-
-HAVE FUN! 😎
-
 ## Why?
 
-This is simple, by having custom_components look (README + structure) the same
-it is easier for developers to help each other and for users to start using them.
+It can show you how well you're playing the game with stats like:
 
-If you are a developer and you want to add things to this "blueprint" that you think more
-developers will have use for, please open a PR to add it :)
+How many times you finish in the:
+- Top 1
+- Top 3
+- Top 5
+- Top 6
+- Top 10
+- Top 12
+- Top 25
+- How many kills you've earned
+- Kill/Death Ratio
+- Kills Per Game
+- Total Matches Played Per Mode
+- Your Fortnite Score
+- Your Score Earned Per Match
+- Your Win Ratio
 
 ## What?
 
@@ -40,37 +42,18 @@ File | Purpose
 `custom_components/blueprint/sensor.py` | Sensor platform for the integration.
 `custom_components/blueprint/switch.py` | Switch sensor platform for the integration.
 `CONTRIBUTING.md` | Guidelines on how to contribute.
-`example.png` | Screenshot that demonstrate how it might look in the UI.
+`docs folder` | Contains screenshots that demonstrate how it might look in the UI.
 `info.md` | An example on a info file (used by [hacs][hacs]).
 `LICENSE` | The license file for the project.
 `README.md` | The file you are reading now, should contain info about the integration, installation and configuration instructions.
 `requirements.txt` | Python packages used by this integration.
-
-## How?
-
-If you want to use all the potential and features of this blueprint tempalte you
-should use Visual Studio Code to develop in a container. In this container you
-will have all the tools to ease your python development and a dedicated Home
-Assistant core instance to run your integration. See `.devcontainer/README.md` for more information.
-
-If you need to work on the python library in parallel of this integration
-(`sampleclient` in this example) there are different options. The following one seems
-easy to implement:
-
-- Create a dedicated branch for your python library on a public git repository (example: branch
-`dev` on `https://github.com/ludeeus/sampleclient`)
-- Update in the `manifest.json` file the `requirements` key to point on your development branch
-( example: `"requirements": ["git+https://github.com/ludeeus/sampleclient.git@dev#devp==0.0.1beta1"]`)
-- Each time you need to make a modification to your python library, push it to your
-development branch and increase the number of the python library version in `manifest.json` file
-to ensure Home Assistant update the code of the python library. (example `"requirements": ["git+https://...==0.0.1beta2"]`).
 
 
 ***
 README content if this was a published component:
 ***
 
-# blueprint
+# Fortnite Stats Sensors
 
 [![GitHub Release][releases-shield]][releases]
 [![GitHub Activity][commits-shield]][commits]
@@ -83,19 +66,19 @@ README content if this was a published component:
 [![Discord][discord-shield]][discord]
 [![Community Forum][forum-shield]][forum]
 
-_Component to integrate with [blueprint][blueprint]._
+_Component to integrate with [fortnite][fortnite]._
 
 **This component will set up the following platforms.**
 
 Platform | Description
 -- | --
 `binary_sensor` | Show something `True` or `False`.
-`sensor` | Show info from blueprint API.
+`sensor` | Show info from fortnite API on https://fortnitetracker.com
 `switch` | Switch something `True` or `False`.
 
 ![fortnite-logo][fortnite-logoimg]
 
-## Installation
+## Manual Installation
 
 1. Using the tool of choice open the directory (folder) for your HA configuration (where you find `configuration.yaml`).
 2. If you do not have a `custom_components` directory (folder) there, you need to create it.
@@ -119,10 +102,59 @@ custom_components/blueprint/manifest.json
 custom_components/blueprint/sensor.py
 custom_components/blueprint/switch.py
 ```
+## MANUAL INSTALLATION
+Download the anniversaries.zip file from the latest release.
+Unpack the release and copy the custom_components/anniversaries directory into the custom_components directory of your Home Assistant installation.
+Configure the anniversaries sensor.
+Restart Home Assistant.
 
-## Configuration is done in the UI
+## Installation via HACS
+Ensure that HACS is installed.
+Search for and install the "fortnite" integration.
+Configure the fortnite sensor in `configuration.yaml`.
+Restart Home Assistant.
+
+## Configuration is done in YAML -> `configuration.yaml` 
+
+My username is Captain_Crunch88 and I play on the switch (use "GAMEPAD" in the config) if you want to test out the sensor. You'll need to register for an api key at https://fortnitetracker.com/site-api
 
 <!---->
+
+````yaml
+sensor:
+  - platform: fortnite
+    name: Fortnite Solo Stats
+    api_key: 12345678-90ab-cdef-ghij-lmnopqrstuvw
+    player_id: Captain_Crunch88
+    game_platform: "GAMEPAD"
+    game_mode: "SOLO"
+  - platform: fortnite
+    name: Fortnite Duo Stats
+    api_key: 12345678-90ab-cdef-ghij-lmnopqrstuvw
+    player_id: Captain_Crunch88
+    game_platform: "GAMEPAD"
+    game_mode: "DUO"
+  - platform: fortnite
+    name: Fortnite Squads Stats
+    api_key: 12345678-90ab-cdef-ghij-lmnopqrstuvw
+    player_id: Captain_Crunch88
+    game_platform: "GAMEPAD"
+    game_mode: "SQUAD"
+````
+
+If you play on multiple platforms, you'll need to create multiple sensors for each platform you play on. For example if you play on the PC and Nintndo Switch, you'd use `PC` in one sensor and `GAMEPAD` in the other sensor. At this time there is no aggregate sensor, but maybe you can submit a pull request for a Template Sensor in Home Assistant to aggregate it!
+
+
+Game Platform | Config Value (ALL CAPS!)
+-- | --
+PC | `PC`
+Xbox | `XBOX`
+PlayStation | `PSN`
+iPad & iPhone | `TOUCH`
+Nintendo Switch | `GAMEPAD`
+KBM | `KBM`
+
+
 
 ## Contributions are welcome!
 
@@ -130,11 +162,11 @@ If you want to contribute to this please read the [Contribution guidelines](CONT
 
 ***
 
-[blueprint]: https://github.com/custom-components/blueprint
-[buymecoffee]: https://www.buymeacoffee.com/ludeeus
+[fortnite]: https://github.com/michaellunzer/Home-Assistant-Custom-Component-Fortnite
+[buymecoffee]: https://www.buymeacoffee.com/michaellunzer
 [buymecoffeebadge]: https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg?style=for-the-badge
-[commits-shield]: https://img.shields.io/github/commit-activity/y/custom-components/blueprint.svg?style=for-the-badge
-[commits]: https://github.com/custom-components/blueprint/commits/master
+[commits-shield]: https://img.shields.io/github/commit-activity/y/michaellunzer/Home-Assistant-Custom-Component-Fortnite.svg?style=for-the-badge
+[commits]: https://github.com/michaellunzer/Home-Assistant-Custom-Component-Fortnite/commit/master
 [hacs]: https://github.com/custom-components/hacs
 [hacsbadge]: https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge
 [discord]: https://discord.gg/Qa5fW2R
@@ -142,7 +174,7 @@ If you want to contribute to this please read the [Contribution guidelines](CONT
 [fortnite-logoimg]: custom_components/fortnite/docs/fortnite-logo.png
 [forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg?style=for-the-badge
 [forum]: https://community.home-assistant.io/
-[license-shield]: https://img.shields.io/github/license/custom-components/blueprint.svg?style=for-the-badge
-[maintenance-shield]: https://img.shields.io/badge/maintainer-Joakim%20Sørensen%20%40ludeeus-blue.svg?style=for-the-badge
-[releases-shield]: https://img.shields.io/github/release/custom-components/blueprint.svg?style=for-the-badge
-[releases]: https://github.com/custom-components/blueprint/releases
+[license-shield]: https://img.shields.io/github/license/michaellunzer/Home-Assistant-Custom-Component-Fortnite.svg?style=for-the-badge
+[maintenance-shield]: https://img.shields.io/badge/maintainer-Michael%20Lunzer%20%40michaellunzer-blue.svg?style=for-the-badge
+[releases-shield]: https://img.shields.io/github/release/michaellunzer/Home-Assistant-Custom-Component-Fortnite.svg?style=for-the-badge
+[releases]: https://github.com/michaellunzer/Home-Assistant-Custom-Component-Fortnite/releases
