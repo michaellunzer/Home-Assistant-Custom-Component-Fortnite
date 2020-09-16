@@ -1,11 +1,10 @@
 {
-    "name": "Blueprint",
+    "name": "Fortnite Stats",
     "hacs": "0.24.0",
     "domains": [
-        "binary_sensor",
-        "sensor",
-        "switch"
+        "sensor"
     ],
     "iot_class": "Cloud Polling",
-    "homeassistant": "0.110.0"
+    "homeassistant": "0.110.0",
+    "render_readme": true
 }
