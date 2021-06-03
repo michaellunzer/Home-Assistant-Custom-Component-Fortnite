@@ -25,6 +25,7 @@ jobs:
       - uses: hacs/action@main
         with:
           CATEGORY: integration
+      - uses: home-assistant/actions/hassfest@master
       - uses: KTibow/ha-blueprint@stable
         name: CI
         with:
