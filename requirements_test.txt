@@ -1,2 +1,1 @@
-pytest-homeassistant-custom-component==0.4.1
-pytest-cov==2.12.1
+pytest-homeassistant-custom-component==0.4.0
