@@ -79,7 +79,7 @@ class FortniteSensor(Entity):
     @property
     def unit_of_measurement(self):
         """Return the unit of measurement."""
-        return "Kills"
+        return "kills"
 
     def update(self):
         self.data.update_stats()
