@@ -5,7 +5,9 @@
   "issue_tracker": "https://github.com/michaellunzer/Home-Assistant-Custom-Component-Fortnite/issues",
   "dependencies": [],
   "codeowners": ["@michaellunzer", "@clyra"],
-  "requirements": [ "fortnite-python==0.3.5"],
-  "version": "0.1.0",
-  "iot_class": "cloud_polling"
+  "requirements": ["fortnite-python==0.3.5"],
+  "version": "2.0.0",
+  "iot_class": "cloud_polling",
+  "config_flow": true,
+  "integration_type": "service"
 }

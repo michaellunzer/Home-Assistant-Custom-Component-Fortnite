@@ -68,35 +68,39 @@ Search for and install the "fortnite" integration.
 Configure the fortnite sensor in `configuration.yaml`.
 Restart Home Assistant.
 
-## Configuration is done in YAML -> `configuration.yaml` 
+## Configuration via UI
 
-My username is Captain_Crunch88 and I play on the Nintendo Switch (use "GAMEPAD" in the config) if you want to test out the sensor. You'll need to register for an api key at https://fortnitetracker.com/site-api
+**Note**: As of version 2.0, this integration uses the modern Home Assistant UI configuration instead of YAML.
 
-<!---->
+### Setup Steps
 
-````yaml
-sensor:
-  - platform: fortnite
-    name: Fortnite Solo Stats
-    api_key: 12345678-90ab-cdef-ghij-lmnopqrstuvw
-    player_id: Captain_Crunch88
-    game_platform: "GAMEPAD"
-    game_mode: "SOLO"
-  - platform: fortnite
-    name: Fortnite Duo Stats
-    api_key: 12345678-90ab-cdef-ghij-lmnopqrstuvw
-    player_id: Captain_Crunch88
-    game_platform: "GAMEPAD"
-    game_mode: "DUO"
-  - platform: fortnite
-    name: Fortnite Squads Stats
-    api_key: 12345678-90ab-cdef-ghij-lmnopqrstuvw
-    player_id: Captain_Crunch88
-    game_platform: "GAMEPAD"
-    game_mode: "SQUAD"
-````
+1. Go to **Settings** > **Devices & Services**
+2. Click **Add Integration**
+3. Search for **Fortnite Stats**
+4. Follow the setup wizard:
+   - Enter a name for your integration
+   - Enter your Fortnite Tracker API key (get one at https://fortnitetracker.com/site-api)
+   - Enter your player ID/username
+   - Select your game platform
+   - Select your game mode
 
-If you play on multiple platforms, you'll need to create multiple sensors for each platform you play on. For example if you play on the PC and Nintndo Switch, you'd use `PC` in one sensor and `GAMEPAD` in the other sensor. At this time there is no aggregate sensor, but maybe you can submit a pull request for a Template Sensor in Home Assistant to aggregate it!
+### Multiple Configurations
+
+If you want to track different game modes or platforms, you'll need to add separate integrations for each:
+
+- One integration for Solo mode
+- One integration for Duo mode  
+- One integration for Squad mode
+- Separate integrations for different platforms (PC, Xbox, etc.)
+
+### Example Setup
+
+My username is Captain_Crunch88 and I play on the Nintendo Switch. I would create separate integrations for:
+- Solo mode on GAMEPAD platform
+- Duo mode on GAMEPAD platform
+- Squad mode on GAMEPAD platform
+
+If you play on multiple platforms, create separate integrations for each platform you play on.
 
 
 Game Platform | Config Value (ALL CAPS!)
@@ -108,7 +112,9 @@ iPad & iPhone | `TOUCH`
 Nintendo Switch | `GAMEPAD`
 KBM | `KBM`
 
-## This custom-component (v0.1.2) was last tested on version 2021.10.6 of Home-Assistant
+## This custom-component (v2.0.0) is compatible with Home Assistant 2023.1.0 and later
+
+**⚠️ Breaking Change**: Version 2.0.0 introduces significant changes. See the [Migration Guide](MIGRATION_GUIDE.md) for upgrade instructions.
 
 ## Contributions are welcome!
 
