@@ -1,0 +1,10 @@
+# Home Assistant Test Configuration
+default_config:
+
+# Enable logging
+logger:
+  default: info
+  logs:
+    custom_components.fortnite: debug
+
+# Enable the integration (will be added via UI)
