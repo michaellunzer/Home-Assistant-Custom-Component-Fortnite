@@ -31,7 +31,17 @@ class FortniteDataUpdateCoordinator(DataUpdateCoordinator):
         self.entry = entry
         self.api_key = entry.data[CONF_API_KEY]
         self.player_id = entry.data[CONF_PLAYER_ID]
-        self.platform = Platform[entry.data[CONF_GAME_PLATFORM]]
+        
+        # Map Fortnite Tracker platform names to fortnite-python Platform enum
+        platform_mapping = {
+            "pc": Platform.PC,
+            "xbox": Platform.XBOX,
+            "psn": Platform.PSN,
+            "switch": Platform.GAMEPAD,  # Nintendo Switch uses GAMEPAD in fortnite-python
+            "kbm": Platform.KBM
+        }
+        
+        self.platform = platform_mapping.get(entry.data[CONF_GAME_PLATFORM], Platform.PC)
         self.mode = Mode[entry.data[CONF_GAME_MODE]]
         
         # Initialize Fortnite API

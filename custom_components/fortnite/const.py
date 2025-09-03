@@ -10,17 +10,16 @@ CONF_GAME_MODE = "game_mode"
 
 # Default values
 DEFAULT_SCAN_INTERVAL = 300  # 5 minutes
-DEFAULT_PLATFORM = "PC"
+DEFAULT_PLATFORM = "pc"
 DEFAULT_MODE = "SOLO"
 
-# Platform options
+# Platform options (Fortnite Tracker API identifiers)
 PLATFORM_OPTIONS = [
-    "PC",
-    "XBOX", 
-    "PSN",
-    "TOUCH",
-    "GAMEPAD",
-    "KBM"
+    "pc",
+    "xbox", 
+    "psn",
+    "switch",
+    "kbm"
 ]
 
 # Game mode options

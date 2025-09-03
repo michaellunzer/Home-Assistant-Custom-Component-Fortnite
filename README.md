@@ -96,21 +96,20 @@ If you want to track different game modes or platforms, you'll need to add separ
 ### Example Setup
 
 My username is Captain_Crunch88 and I play on the Nintendo Switch. I would create separate integrations for:
-- Solo mode on GAMEPAD platform
-- Duo mode on GAMEPAD platform
-- Squad mode on GAMEPAD platform
+- Solo mode on switch platform
+- Duo mode on switch platform
+- Squad mode on switch platform
 
 If you play on multiple platforms, create separate integrations for each platform you play on.
 
 
-Game Platform | Config Value (ALL CAPS!)
+Game Platform | Config Value (lowercase)
 -- | --
-PC | `PC`
-Xbox | `XBOX`
-PlayStation | `PSN`
-iPad & iPhone | `TOUCH`
-Nintendo Switch | `GAMEPAD`
-KBM | `KBM`
+PC | `pc`
+Xbox | `xbox`
+PlayStation | `psn`
+Nintendo Switch | `switch`
+KBM | `kbm`
 
 ## This custom-component (v2.0.0) is compatible with Home Assistant 2023.1.0 and later
 
