@@ -22,9 +22,9 @@ This 'fortnite' component is a Home Assistant custom sensor which shows you vari
 ## Why?
 
 It can show you how well you're playing the game with stats like:
-- How many kills you've earned
+- How many eliminations you've earned
 - Kill/Death Ratio
-- Kills Per Game
+- Eliminations Per Game
 - Total Matches Played Per Mode
 - Your Fortnite Score
 - Your Score Earned Per Match
@@ -44,16 +44,22 @@ And how many times you finish in the:
 This is my first Home-Assistant Custom Component, so it's been a fun learning experience for me contributing to Open Source Software! This wouldn't been possible without the help from @xcodinas for building the fortnite-python library and from @clyra for helping refine my initial script and idea by further developing it towards a more finished product. From there I've added some extra tweaks, wrote the documentation, and published it in the Home-Assistant Community Store (HACS).
 
 ## Screenshots
-![fortnite-stats-overview-kills-screenshot][fortnite-stats-overview-kills-screenshot-img]
-![fortnite-stats-solo-screenshot][fortnite-stats-solo-screenshot-img]
-![fortnite-stats-duo-screenshot][fortnite-stats-duo-screenshot-img]
-![fortnite-stats-squads-screenshot][fortnite-stats-squads-screenshot-img]
+
+### Sensor List View
+![Fortnite Stats Overview](custom_components/fortnite/docs/Fortnite-Stats-Overview-Screenshot.png)
+
+*Clean sensor names showing Console/PC platforms with all game modes and statistics*
+
+### Detailed Sensor View
+![Fortnite Stats Detail](custom_components/fortnite/docs/Fortnite-Stats-Detail-Screenshot.png)
+
+*Detailed sensor view showing wins, attributes, and real-time data from fortnite-api.com*
 
 **This component will set up the following platforms.**
 
 Platform | Description
 -- | --
-`sensor` | Show stats pulled from fortnite API on https://fortnitetracker.com
+`sensor` | Show stats pulled from fortnite API on https://fortnite-api.com/
 
 ## Manual Installation
 
@@ -63,52 +69,83 @@ Configure the fortnite sensor.
 Restart Home Assistant.
 
 ## Installation via HACS (Preferred Method)
-Ensure that HACS is installed.
-Search for and install the "fortnite" integration.
-Configure the fortnite sensor in `configuration.yaml`.
-Restart Home Assistant.
+1. Ensure that HACS is installed
+2. Search for and install the "Fortnite Stats" integration
+3. Restart Home Assistant
+4. Add the integration via the UI (see Configuration section above)
 
-## Configuration is done in YAML -> `configuration.yaml` 
+## Configuration via UI
 
-My username is Captain_Crunch88 and I play on the Nintendo Switch (use "GAMEPAD" in the config) if you want to test out the sensor. You'll need to register for an api key at https://fortnitetracker.com/site-api
+**Note**: As of version 2.0, this integration uses the modern Home Assistant UI configuration instead of YAML and has been completely modernized for Home Assistant 2024+.
 
-<!---->
+### Getting Your API Key
 
-````yaml
-sensor:
-  - platform: fortnite
-    name: Fortnite Solo Stats
-    api_key: 12345678-90ab-cdef-ghij-lmnopqrstuvw
-    player_id: Captain_Crunch88
-    game_platform: "GAMEPAD"
-    game_mode: "SOLO"
-  - platform: fortnite
-    name: Fortnite Duo Stats
-    api_key: 12345678-90ab-cdef-ghij-lmnopqrstuvw
-    player_id: Captain_Crunch88
-    game_platform: "GAMEPAD"
-    game_mode: "DUO"
-  - platform: fortnite
-    name: Fortnite Squads Stats
-    api_key: 12345678-90ab-cdef-ghij-lmnopqrstuvw
-    player_id: Captain_Crunch88
-    game_platform: "GAMEPAD"
-    game_mode: "SQUAD"
-````
+1. Visit [fortnite-api.com](https://fortnite-api.com/)
+2. Click **Dashboard / Docs** in the navigation
+3. Sign up for a free account or log in
+4. Navigate to the **API Keys** section
+5. Generate a new API key for your Home Assistant integration
+6. Copy the API key (you'll need this for setup)
 
-If you play on multiple platforms, you'll need to create multiple sensors for each platform you play on. For example if you play on the PC and Nintndo Switch, you'd use `PC` in one sensor and `GAMEPAD` in the other sensor. At this time there is no aggregate sensor, but maybe you can submit a pull request for a Template Sensor in Home Assistant to aggregate it!
+### Getting Your Epic Username
+
+Your Epic username is the display name you use in Fortnite. This is different from your Epic Games account email. You can find it by:
+
+1. Launch Fortnite
+2. Look at the top-right corner of the main menu - your display name is shown there
+3. Or check your Epic Games profile at [epicgames.com](https://www.epicgames.com/account/personal)
+
+**Note**: Use your Epic display name, not your Epic Games account email.
+
+### Setup Steps
+
+1. Go to **Settings** > **Devices & Services**
+2. Click **Add Integration**
+3. Search for **Fortnite Stats**
+4. Follow the setup wizard:
+   - Enter your Fortnite API key (from fortnite-api.com)
+   - Enter your Epic username/display name
+5. The integration will automatically create sensors for all platforms and game modes
+
+### What You Get
+
+The integration automatically creates **54 sensors** covering all platforms and game modes:
+
+**Platforms:**
+- **Console** (Xbox, PlayStation, Nintendo Switch)
+- **PC** (Keyboard & Mouse)
+
+**Game Modes:**
+- **Solo** - Individual battle royale matches
+- **Duo** - Two-player team matches  
+- **Squad** - Four-player team matches
+
+**Stats for Each Combination:**
+- Eliminations, Wins, Matches, Win Rate, K/D Ratio
+- Top 10 Finishes, Top 25 Finishes, Score, Minutes Played
+
+### Example Sensors Created
+
+For username `Captain_Crunch88`, you'll get sensors like:
+- `sensor.captain_crunch88_console_squad_eliminations`
+- `sensor.captain_crunch88_console_squad_wins`
+- `sensor.captain_crunch88_pc_solo_eliminations`
+- `sensor.captain_crunch88_console_duo_win_rate`
+- And 50 more...
 
 
-Game Platform | Config Value (ALL CAPS!)
--- | --
-PC | `PC`
-Xbox | `XBOX`
-PlayStation | `PSN`
-iPad & iPhone | `TOUCH`
-Nintendo Switch | `GAMEPAD`
-KBM | `KBM`
+## Features
 
-## This custom-component (v0.1.2) was last tested on version 2021.10.6 of Home-Assistant
+- **Real-time Updates**: Automatic updates every 5 minutes
+- **Multiple Platforms**: Tracks both Console and PC gameplay
+- **All Game Modes**: Solo, Duo, and Squad statistics
+- **Comprehensive Stats**: 9 different statistics per platform/mode combination
+- **Modern Architecture**: Built for Home Assistant 2024+ with async/await patterns
+- **Easy Setup**: Just API key and username - no complex configuration
+
+## This custom-component (v2.0.0) is compatible with Home Assistant 2023.1.0 and later
+
+**⚠️ Breaking Change**: Version 2.0.0 introduces significant changes. See the [Migration Guide](MIGRATION_GUIDE.md) for upgrade instructions.
 
 ## Contributions are welcome!
 
@@ -132,7 +169,3 @@ If you want to contribute to this please read the [Contribution guidelines](CONT
 [maintenance-shield]: https://img.shields.io/badge/maintainer-Michael%20Lunzer%20%40michaellunzer-blue.svg?style=for-the-badge
 [releases-shield]: https://img.shields.io/github/release/michaellunzer/Home-Assistant-Custom-Component-Fortnite.svg?style=for-the-badge
 [releases]: https://github.com/michaellunzer/Home-Assistant-Custom-Component-Fortnite/releases
-[fortnite-stats-overview-kills-screenshot-img]: custom_components/fortnite/docs/Fortnite-Stats-Overview-Kills-Screenshot.png
-[fortnite-stats-solo-screenshot-img]: custom_components/fortnite/docs/Fortnite-Stats-Solo-Screenshot.png
-[fortnite-stats-duo-screenshot-img]: custom_components/fortnite/docs/Fortnite-Stats-Duo-Screenshot.png
-[fortnite-stats-squads-screenshot-img]: custom_components/fortnite/docs/Fortnite-Stats-Squads-Screenshot.png
