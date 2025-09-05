@@ -44,7 +44,17 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
     try:
         # Test the API key and player data
         game = Fortnite(data[CONF_API_KEY])
-        platform = Platform[data[CONF_GAME_PLATFORM]]
+        
+        # Map Fortnite Tracker platform names to fortnite-python Platform enum
+        platform_mapping = {
+            "pc": Platform.PC,
+            "xbox": Platform.XBOX,
+            "psn": Platform.PSN,
+            "switch": Platform.GAMEPAD,  # Nintendo Switch uses GAMEPAD in fortnite-python
+            "kbm": Platform.KBM
+        }
+        
+        platform = platform_mapping.get(data[CONF_GAME_PLATFORM], Platform.PC)
         mode = Mode[data[CONF_GAME_MODE]]
         
         # Try to get player data to validate

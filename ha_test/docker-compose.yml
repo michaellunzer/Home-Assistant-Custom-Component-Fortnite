@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   homeassistant:
     container_name: ha_test
@@ -8,6 +7,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
     privileged: true
-    network_mode: host
+    ports:
+      - "8123:8123"
     environment:
       - TZ=America/New_York
