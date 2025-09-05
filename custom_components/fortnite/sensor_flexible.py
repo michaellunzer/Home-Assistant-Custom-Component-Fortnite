@@ -1,4 +1,4 @@
-"""Consolidated sensor platform for Fortnite Stats - groups platforms by API endpoint."""
+"""Flexible sensor platform for Fortnite Stats - handles multiple platforms and game modes."""
 from __future__ import annotations
 
 import logging
@@ -36,11 +36,11 @@ async def async_setup_entry(
     """Set up Fortnite Stats sensors based on a config entry."""
     coordinator: FortniteDataUpdateCoordinator = hass.data[DOMAIN][config_entry.entry_id]
 
-    # Create sensors for consolidated platforms and game modes
+    # Create sensors for all configured platforms and game modes
     entities = []
     
     # Get configured platforms and game modes
-    platforms = config_entry.data.get("platforms", ["gamepad", "keyboardMouse"])
+    platforms = config_entry.data.get("platforms", ["pc", "xbox", "psn", "gamepad", "kbm"])
     game_modes = config_entry.data.get("game_modes", ["solo", "duo", "squad"])
     
     for platform in platforms:
@@ -90,8 +90,11 @@ class FortniteSensor(CoordinatorEntity, SensorEntity):
     def _get_platform_display_name(self, platform: str) -> str:
         """Get a user-friendly display name for the platform."""
         platform_names = {
-            "gamepad": "Console (Xbox/PlayStation/Switch)",
-            "keyboardMouse": "PC (Keyboard & Mouse)"
+            "pc": "PC",
+            "xbox": "Xbox",
+            "psn": "PlayStation",
+            "gamepad": "Switch",
+            "kbm": "Keyboard & Mouse"
         }
         return platform_names.get(platform, platform.title())
 

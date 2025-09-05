@@ -22,9 +22,9 @@ This 'fortnite' component is a Home Assistant custom sensor which shows you vari
 ## Why?
 
 It can show you how well you're playing the game with stats like:
-- How many kills you've earned
+- How many eliminations you've earned
 - Kill/Death Ratio
-- Kills Per Game
+- Eliminations Per Game
 - Total Matches Played Per Mode
 - Your Fortnite Score
 - Your Score Earned Per Match

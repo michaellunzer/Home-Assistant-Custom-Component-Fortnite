@@ -1,26 +1,30 @@
-"""Simple config flow for Fortnite Stats - shows all data by default."""
+"""Config flow for Fortnite Stats with API validation."""
 from __future__ import annotations
 
 import logging
 from typing import Any
 
-import aiohttp
 import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResult
 
+from .const import PLATFORM_OPTIONS, MODE_OPTIONS
+
 _LOGGER = logging.getLogger(__name__)
 
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
+        vol.Required("name"): str,
         vol.Required("api_key"): str,
         vol.Required("player_id"): str,
+        vol.Required("game_platform"): vol.In(PLATFORM_OPTIONS),
+        vol.Required("game_mode"): vol.In(MODE_OPTIONS),
     }
 )
 
 class ConfigFlow(config_entries.ConfigFlow, domain="fortnite"):
-    """Handle a config flow for Fortnite Stats with all platforms and game modes by default."""
+    """Handle a config flow for Fortnite Stats."""
     
     VERSION = 1
 
@@ -36,43 +40,43 @@ class ConfigFlow(config_entries.ConfigFlow, domain="fortnite"):
 
         errors = {}
 
-        # Try to validate the API key and player data
+        # Validate the API key and player data
         try:
             await self._test_connection(user_input)
         except Exception as err:
-            _LOGGER.warning("API validation failed (will use fallback data): %s", err)
-            # Don't show error - just log it and continue with fallback data
+            _LOGGER.error("API validation failed: %s", err)
+            errors["base"] = "cannot_connect"
 
-        # Add default platforms and game modes (consolidated by API endpoint)
-        user_input["platforms"] = ["gamepad", "keyboardMouse"]
-        user_input["game_modes"] = ["solo", "duo", "squad"]
-        
-        return self.async_create_entry(
-            title=f"Fortnite Stats - {user_input['player_id']}",
-            data=user_input,
+        if not errors:
+            return self.async_create_entry(
+                title=user_input["name"],
+                data=user_input,
+            )
+
+        return self.async_show_form(
+            step_id="user",
+            data_schema=STEP_USER_DATA_SCHEMA,
+            errors=errors,
         )
 
     async def _test_connection(self, user_input: dict[str, Any]) -> None:
-        """Test the connection to fortnite-api.com."""
+        """Test the connection to the Fortnite API."""
+        import aiohttp
+        
         api_key = user_input["api_key"]
         player_id = user_input["player_id"]
+        platform = user_input["game_platform"]
         
-        # Test with gamepad platform (Switch)
-        url = "https://fortnite-api.com/v2/stats/br/v2"
-        params = {
-            "name": player_id,
-            "accountType": "epic",
-            "timeWindow": "lifetime",
-            "image": "gamepad"
-        }
-        headers = {"Authorization": api_key}
-        
+        # Test the API connection
         async with aiohttp.ClientSession() as session:
-            async with session.get(url, params=params, headers=headers, timeout=10) as response:
+            headers = {"Authorization": api_key}
+            url = f"https://fortniteapi.io/v1/stats?username={player_id}&platform={platform}"
+            
+            async with session.get(url, headers=headers, timeout=10) as response:
                 if response.status == 200:
                     data = await response.json()
-                    if data.get("status") != 200:
-                        raise Exception(f"API error: {data.get('error', 'Unknown error')}")
+                    if not data.get("result"):
+                        raise Exception("Invalid player data or API key")
                 elif response.status == 401:
                     raise Exception("Invalid API key")
                 elif response.status == 404:

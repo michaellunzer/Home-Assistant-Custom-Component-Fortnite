@@ -13,12 +13,12 @@ DEFAULT_SCAN_INTERVAL = 300  # 5 minutes
 DEFAULT_PLATFORM = "pc"
 DEFAULT_MODE = "SOLO"
 
-# Platform options (Fortnite Tracker API identifiers)
+# Platform options (FortniteAPI.io identifiers)
 PLATFORM_OPTIONS = [
     "pc",
     "xbox", 
     "psn",
-    "switch",
+    "gamepad",  # Nintendo Switch uses "gamepad" in FortniteAPI.io
     "kbm"
 ]
 

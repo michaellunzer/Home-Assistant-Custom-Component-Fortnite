@@ -1,4 +1,4 @@
-"""Consolidated coordinator for Fortnite Stats - groups platforms by API endpoint."""
+"""Flexible coordinator for Fortnite Stats - handles multiple platforms and game modes."""
 from __future__ import annotations
 
 import logging
@@ -19,22 +19,37 @@ from .const import (
 
 _LOGGER = logging.getLogger(__name__)
 
-# Mock data as fallback - consolidated by API endpoint
+# Mock data as fallback
 MOCK_DATA = {
-    "gamepad": {  # Xbox, PlayStation, Switch all use "gamepad" API
+    "pc": {
+        "solo": {"kills": 150, "matches": 80, "win_ratio": 0.12, "kd": 1.5, "kpg": 1.9, "top1": 6, "top10": 25, "top25": 40, "score": 20000, "score_per_match": 250.0, "minutes_played": 800, "id": "captain_crunch88_pc_solo"},
+        "duo": {"kills": 100, "matches": 50, "win_ratio": 0.08, "kd": 1.2, "kpg": 2.0, "top1": 2, "top10": 15, "top25": 25, "score": 12000, "score_per_match": 240.0, "minutes_played": 500, "id": "captain_crunch88_pc_duo"},
+        "squad": {"kills": 800, "matches": 400, "win_ratio": 0.15, "kd": 1.8, "kpg": 2.0, "top1": 30, "top10": 100, "top25": 150, "score": 100000, "score_per_match": 250.0, "minutes_played": 4000, "id": "captain_crunch88_pc_squad"}
+    },
+    "xbox": {
+        "solo": {"kills": 120, "matches": 70, "win_ratio": 0.10, "kd": 1.3, "kpg": 1.7, "top1": 4, "top10": 20, "top25": 35, "score": 15000, "score_per_match": 214.3, "minutes_played": 700, "id": "captain_crunch88_xbox_solo"},
+        "duo": {"kills": 80, "matches": 45, "win_ratio": 0.07, "kd": 1.1, "kpg": 1.8, "top1": 1, "top10": 12, "top25": 20, "score": 10000, "score_per_match": 222.2, "minutes_played": 450, "id": "captain_crunch88_xbox_duo"},
+        "squad": {"kills": 600, "matches": 300, "win_ratio": 0.12, "kd": 1.6, "kpg": 2.0, "top1": 20, "top10": 80, "top25": 120, "score": 75000, "score_per_match": 250.0, "minutes_played": 3000, "id": "captain_crunch88_xbox_squad"}
+    },
+    "psn": {
+        "solo": {"kills": 110, "matches": 65, "win_ratio": 0.09, "kd": 1.2, "kpg": 1.7, "top1": 3, "top10": 18, "top25": 30, "score": 14000, "score_per_match": 215.4, "minutes_played": 650, "id": "captain_crunch88_psn_solo"},
+        "duo": {"kills": 70, "matches": 40, "win_ratio": 0.06, "kd": 1.0, "kpg": 1.8, "top1": 1, "top10": 10, "top25": 18, "score": 9000, "score_per_match": 225.0, "minutes_played": 400, "id": "captain_crunch88_psn_duo"},
+        "squad": {"kills": 500, "matches": 250, "win_ratio": 0.10, "kd": 1.4, "kpg": 2.0, "top1": 15, "top10": 70, "top25": 100, "score": 60000, "score_per_match": 240.0, "minutes_played": 2500, "id": "captain_crunch88_psn_squad"}
+    },
+    "gamepad": {
         "solo": {"kills": 202, "matches": 120, "win_ratio": 0.075, "kd": 1.82, "kpg": 1.683, "top1": 9, "top10": 43, "top25": 60, "score": 30029, "score_per_match": 250.242, "minutes_played": 1124, "id": "captain_crunch88_gamepad_solo"},
         "duo": {"kills": 32, "matches": 22, "win_ratio": 0.045, "kd": 1.524, "kpg": 1.455, "top1": 1, "top10": 0, "top25": 0, "score": 4549, "score_per_match": 206.773, "minutes_played": 168, "id": "captain_crunch88_gamepad_duo"},
         "squad": {"kills": 1639, "matches": 793, "win_ratio": 0.164, "kd": 2.472, "kpg": 2.067, "top1": 130, "top10": 0, "top25": 0, "score": 225265, "score_per_match": 284.067, "minutes_played": 8262, "id": "captain_crunch88_gamepad_squad"}
     },
-    "keyboardMouse": {  # PC and KBM use "keyboardMouse" API
-        "solo": {"kills": 0, "matches": 1, "win_ratio": 0.0, "kd": 0.0, "kpg": 0.0, "top1": 0, "top10": 0, "top25": 0, "score": 77, "score_per_match": 77.0, "minutes_played": 5, "id": "captain_crunch88_keyboardMouse_solo"},
-        "duo": {"kills": 0, "matches": 0, "win_ratio": 0.0, "kd": 0.0, "kpg": 0.0, "top1": 0, "top10": 0, "top25": 0, "score": 0, "score_per_match": 0.0, "minutes_played": 0, "id": "captain_crunch88_keyboardMouse_duo"},
-        "squad": {"kills": 0, "matches": 1, "win_ratio": 0.0, "kd": 0.0, "kpg": 0.0, "top1": 0, "top10": 0, "top25": 0, "score": 77, "score_per_match": 77.0, "minutes_played": 5, "id": "captain_crunch88_keyboardMouse_squad"}
+    "kbm": {
+        "solo": {"kills": 180, "matches": 90, "win_ratio": 0.11, "kd": 1.6, "kpg": 2.0, "top1": 7, "top10": 30, "top25": 50, "score": 18000, "score_per_match": 200.0, "minutes_played": 900, "id": "captain_crunch88_kbm_solo"},
+        "duo": {"kills": 90, "matches": 55, "win_ratio": 0.09, "kd": 1.4, "kpg": 1.6, "top1": 3, "top10": 20, "top25": 30, "score": 11000, "score_per_match": 200.0, "minutes_played": 550, "id": "captain_crunch88_kbm_duo"},
+        "squad": {"kills": 700, "matches": 350, "win_ratio": 0.13, "kd": 1.7, "kpg": 2.0, "top1": 25, "top10": 90, "top25": 130, "score": 85000, "score_per_match": 242.9, "minutes_played": 3500, "id": "captain_crunch88_kbm_squad"}
     }
 }
 
 class FortniteDataUpdateCoordinator(DataUpdateCoordinator):
-    """Consolidated coordinator for Fortnite Stats - groups platforms by API endpoint."""
+    """Flexible coordinator for Fortnite Stats handling multiple platforms and game modes."""
 
     def __init__(self, hass: HomeAssistant, entry: ConfigEntry) -> None:
         """Initialize the coordinator."""
@@ -43,7 +58,7 @@ class FortniteDataUpdateCoordinator(DataUpdateCoordinator):
         self.player_id = entry.data[CONF_PLAYER_ID]
         
         # Get configured platforms and game modes, with defaults
-        self.platforms = entry.data.get("platforms", ["gamepad", "keyboardMouse"])
+        self.platforms = entry.data.get("platforms", ["pc", "xbox", "psn", "gamepad", "kbm"])
         self.game_modes = entry.data.get("game_modes", ["solo", "duo", "squad"])
         
         # Track if we're using mock data
@@ -76,15 +91,26 @@ class FortniteDataUpdateCoordinator(DataUpdateCoordinator):
             "game_modes": self.game_modes
         }
         
-        # Get data for each API endpoint
-        for api_platform in self.platforms:
+        # Map platform names to API format
+        platform_mapping = {
+            "pc": "keyboardMouse",
+            "xbox": "gamepad", 
+            "psn": "gamepad",
+            "gamepad": "gamepad",  # Nintendo Switch uses "gamepad"
+            "kbm": "keyboardMouse"
+        }
+        
+        # Get data for each platform
+        for platform in self.platforms:
+            api_platform = platform_mapping.get(platform, "gamepad")
+            
             try:
                 platform_data = await self._get_platform_data(api_platform)
-                result[api_platform] = platform_data
+                result[platform] = platform_data
             except Exception as e:
-                _LOGGER.warning("Failed to get data for platform %s: %s", api_platform, e)
+                _LOGGER.warning("Failed to get data for platform %s: %s", platform, e)
                 # Use mock data for this platform
-                result[api_platform] = self._get_mock_platform_data(api_platform)
+                result[platform] = self._get_mock_platform_data(platform)
         
         return result
 

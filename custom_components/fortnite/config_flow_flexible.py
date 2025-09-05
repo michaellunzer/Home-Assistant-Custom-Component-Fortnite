@@ -1,4 +1,4 @@
-"""Simple config flow for Fortnite Stats - shows all data by default."""
+"""Flexible config flow for Fortnite Stats - shows all data by default."""
 from __future__ import annotations
 
 import logging
@@ -10,19 +10,26 @@ from homeassistant import config_entries
 from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResult
 
+from .options_flow import FortniteOptionsFlowHandler
+
 _LOGGER = logging.getLogger(__name__)
 
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
+        vol.Required("name"): str,
         vol.Required("api_key"): str,
         vol.Required("player_id"): str,
     }
 )
 
 class ConfigFlow(config_entries.ConfigFlow, domain="fortnite"):
-    """Handle a config flow for Fortnite Stats with all platforms and game modes by default."""
+    """Handle a config flow for Fortnite Stats with flexible platform/mode selection."""
     
     VERSION = 1
+
+    async def async_step_options_flow(self, user_input: dict[str, Any] | None = None) -> FlowResult:
+        """Handle options flow."""
+        return await self.async_step_init(user_input)
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
@@ -36,20 +43,27 @@ class ConfigFlow(config_entries.ConfigFlow, domain="fortnite"):
 
         errors = {}
 
-        # Try to validate the API key and player data
+        # Validate the API key and player data
         try:
             await self._test_connection(user_input)
         except Exception as err:
-            _LOGGER.warning("API validation failed (will use fallback data): %s", err)
-            # Don't show error - just log it and continue with fallback data
+            _LOGGER.error("API validation failed: %s", err)
+            errors["base"] = "cannot_connect"
 
-        # Add default platforms and game modes (consolidated by API endpoint)
-        user_input["platforms"] = ["gamepad", "keyboardMouse"]
-        user_input["game_modes"] = ["solo", "duo", "squad"]
-        
-        return self.async_create_entry(
-            title=f"Fortnite Stats - {user_input['player_id']}",
-            data=user_input,
+        if not errors:
+            # Add default platforms and game modes
+            user_input["platforms"] = ["pc", "xbox", "psn", "gamepad", "kbm"]
+            user_input["game_modes"] = ["solo", "duo", "squad"]
+            
+            return self.async_create_entry(
+                title=user_input["name"],
+                data=user_input,
+            )
+
+        return self.async_show_form(
+            step_id="user",
+            data_schema=STEP_USER_DATA_SCHEMA,
+            errors=errors,
         )
 
     async def _test_connection(self, user_input: dict[str, Any]) -> None:
@@ -57,13 +71,27 @@ class ConfigFlow(config_entries.ConfigFlow, domain="fortnite"):
         api_key = user_input["api_key"]
         player_id = user_input["player_id"]
         
-        # Test with gamepad platform (Switch)
+        # Test with the first available platform (usually gamepad for Switch)
+        test_platform = "gamepad"
+        
+        # Map platform names to API format
+        platform_mapping = {
+            "pc": "keyboardMouse",
+            "xbox": "gamepad", 
+            "psn": "gamepad",
+            "gamepad": "gamepad",  # Nintendo Switch uses "gamepad"
+            "kbm": "keyboardMouse"
+        }
+        
+        api_platform = platform_mapping.get(test_platform, "gamepad")
+        
+        # Test the API connection
         url = "https://fortnite-api.com/v2/stats/br/v2"
         params = {
             "name": player_id,
             "accountType": "epic",
             "timeWindow": "lifetime",
-            "image": "gamepad"
+            "image": api_platform
         }
         headers = {"Authorization": api_key}
         
