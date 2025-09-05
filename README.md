@@ -44,16 +44,22 @@ And how many times you finish in the:
 This is my first Home-Assistant Custom Component, so it's been a fun learning experience for me contributing to Open Source Software! This wouldn't been possible without the help from @xcodinas for building the fortnite-python library and from @clyra for helping refine my initial script and idea by further developing it towards a more finished product. From there I've added some extra tweaks, wrote the documentation, and published it in the Home-Assistant Community Store (HACS).
 
 ## Screenshots
-![fortnite-stats-overview-kills-screenshot][fortnite-stats-overview-kills-screenshot-img]
-![fortnite-stats-solo-screenshot][fortnite-stats-solo-screenshot-img]
-![fortnite-stats-duo-screenshot][fortnite-stats-duo-screenshot-img]
-![fortnite-stats-squads-screenshot][fortnite-stats-squads-screenshot-img]
+
+### Sensor List View
+![Fortnite Stats Overview](custom_components/fortnite/docs/Fortnite-Stats-Overview-Screenshot.png)
+
+*Clean sensor names showing Console/PC platforms with all game modes and statistics*
+
+### Detailed Sensor View
+![Fortnite Stats Detail](custom_components/fortnite/docs/Fortnite-Stats-Detail-Screenshot.png)
+
+*Detailed sensor view showing wins, attributes, and real-time data from fortnite-api.com*
 
 **This component will set up the following platforms.**
 
 Platform | Description
 -- | --
-`sensor` | Show stats pulled from fortnite API on https://fortnitetracker.com
+`sensor` | Show stats pulled from fortnite API on https://fortnite-api.com/
 
 ## Manual Installation
 
@@ -163,7 +169,3 @@ If you want to contribute to this please read the [Contribution guidelines](CONT
 [maintenance-shield]: https://img.shields.io/badge/maintainer-Michael%20Lunzer%20%40michaellunzer-blue.svg?style=for-the-badge
 [releases-shield]: https://img.shields.io/github/release/michaellunzer/Home-Assistant-Custom-Component-Fortnite.svg?style=for-the-badge
 [releases]: https://github.com/michaellunzer/Home-Assistant-Custom-Component-Fortnite/releases
-[fortnite-stats-overview-kills-screenshot-img]: custom_components/fortnite/docs/Fortnite-Stats-Overview-Kills-Screenshot.png
-[fortnite-stats-solo-screenshot-img]: custom_components/fortnite/docs/Fortnite-Stats-Solo-Screenshot.png
-[fortnite-stats-duo-screenshot-img]: custom_components/fortnite/docs/Fortnite-Stats-Duo-Screenshot.png
-[fortnite-stats-squads-screenshot-img]: custom_components/fortnite/docs/Fortnite-Stats-Squads-Screenshot.png
