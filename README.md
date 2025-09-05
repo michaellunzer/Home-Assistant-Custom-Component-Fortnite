@@ -63,14 +63,33 @@ Configure the fortnite sensor.
 Restart Home Assistant.
 
 ## Installation via HACS (Preferred Method)
-Ensure that HACS is installed.
-Search for and install the "fortnite" integration.
-Configure the fortnite sensor in `configuration.yaml`.
-Restart Home Assistant.
+1. Ensure that HACS is installed
+2. Search for and install the "Fortnite Stats" integration
+3. Restart Home Assistant
+4. Add the integration via the UI (see Configuration section above)
 
 ## Configuration via UI
 
-**Note**: As of version 2.0, this integration uses the modern Home Assistant UI configuration instead of YAML.
+**Note**: As of version 2.0, this integration uses the modern Home Assistant UI configuration instead of YAML and has been completely modernized for Home Assistant 2024+.
+
+### Getting Your API Key
+
+1. Visit [fortnite-api.com](https://fortnite-api.com/)
+2. Click **Dashboard / Docs** in the navigation
+3. Sign up for a free account or log in
+4. Navigate to the **API Keys** section
+5. Generate a new API key for your Home Assistant integration
+6. Copy the API key (you'll need this for setup)
+
+### Getting Your Epic Username
+
+Your Epic username is the display name you use in Fortnite. This is different from your Epic Games account email. You can find it by:
+
+1. Launch Fortnite
+2. Look at the top-right corner of the main menu - your display name is shown there
+3. Or check your Epic Games profile at [epicgames.com](https://www.epicgames.com/account/personal)
+
+**Note**: Use your Epic display name, not your Epic Games account email.
 
 ### Setup Steps
 
@@ -78,38 +97,45 @@ Restart Home Assistant.
 2. Click **Add Integration**
 3. Search for **Fortnite Stats**
 4. Follow the setup wizard:
-   - Enter a name for your integration
-   - Enter your Fortnite Tracker API key (get one at https://fortnitetracker.com/site-api)
-   - Enter your player ID/username
-   - Select your game platform
-   - Select your game mode
+   - Enter your Fortnite API key (from fortnite-api.com)
+   - Enter your Epic username/display name
+5. The integration will automatically create sensors for all platforms and game modes
 
-### Multiple Configurations
+### What You Get
 
-If you want to track different game modes or platforms, you'll need to add separate integrations for each:
+The integration automatically creates **54 sensors** covering all platforms and game modes:
 
-- One integration for Solo mode
-- One integration for Duo mode  
-- One integration for Squad mode
-- Separate integrations for different platforms (PC, Xbox, etc.)
+**Platforms:**
+- **Console** (Xbox, PlayStation, Nintendo Switch)
+- **PC** (Keyboard & Mouse)
 
-### Example Setup
+**Game Modes:**
+- **Solo** - Individual battle royale matches
+- **Duo** - Two-player team matches  
+- **Squad** - Four-player team matches
 
-My username is Captain_Crunch88 and I play on the Nintendo Switch. I would create separate integrations for:
-- Solo mode on switch platform
-- Duo mode on switch platform
-- Squad mode on switch platform
+**Stats for Each Combination:**
+- Eliminations, Wins, Matches, Win Rate, K/D Ratio
+- Top 10 Finishes, Top 25 Finishes, Score, Minutes Played
 
-If you play on multiple platforms, create separate integrations for each platform you play on.
+### Example Sensors Created
+
+For username `Captain_Crunch88`, you'll get sensors like:
+- `sensor.captain_crunch88_console_squad_eliminations`
+- `sensor.captain_crunch88_console_squad_wins`
+- `sensor.captain_crunch88_pc_solo_eliminations`
+- `sensor.captain_crunch88_console_duo_win_rate`
+- And 50 more...
 
 
-Game Platform | Config Value (lowercase)
--- | --
-PC | `pc`
-Xbox | `xbox`
-PlayStation | `psn`
-Nintendo Switch | `switch`
-KBM | `kbm`
+## Features
+
+- **Real-time Updates**: Automatic updates every 5 minutes
+- **Multiple Platforms**: Tracks both Console and PC gameplay
+- **All Game Modes**: Solo, Duo, and Squad statistics
+- **Comprehensive Stats**: 9 different statistics per platform/mode combination
+- **Modern Architecture**: Built for Home Assistant 2024+ with async/await patterns
+- **Easy Setup**: Just API key and username - no complex configuration
 
 ## This custom-component (v2.0.0) is compatible with Home Assistant 2023.1.0 and later
 

@@ -7,7 +7,7 @@ This guide will help you migrate from the old YAML-based configuration to the ne
 - **Modern Integration Architecture**: Now uses the standard Home Assistant integration structure
 - **Config Flow**: Set up through the UI instead of YAML configuration
 - **Asynchronous**: Fully async implementation for better performance
-- **Real-time Updates**: Automatic updates every 5 minutes (configurable)
+- **Real-time Updates**: Automatic updates every 5 minutes
 - **Better Error Handling**: Improved error handling and logging
 - **Unique Entity IDs**: Proper unique IDs for all entities
 

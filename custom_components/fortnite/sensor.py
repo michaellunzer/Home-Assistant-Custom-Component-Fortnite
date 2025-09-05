@@ -90,8 +90,8 @@ class FortniteSensor(CoordinatorEntity, SensorEntity):
     def _get_platform_display_name(self, platform: str) -> str:
         """Get a user-friendly display name for the platform."""
         platform_names = {
-            "gamepad": "Console (Xbox/PlayStation/Switch)",
-            "keyboardMouse": "PC (Keyboard & Mouse)"
+            "gamepad": "Console",
+            "keyboardMouse": "PC"
         }
         return platform_names.get(platform, platform.title())
 
