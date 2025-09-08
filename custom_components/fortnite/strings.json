@@ -5,11 +5,9 @@
         "title": "Fortnite Stats Configuration",
         "description": "Configure your Fortnite Stats integration",
         "data": {
-          "name": "Integration Name",
-          "api_key": "Fortnite Tracker API Key",
-          "player_id": "Player ID/Username",
-          "game_platform": "Game Platform",
-          "game_mode": "Game Mode"
+          "api_key": "Fortnite API Key",
+          "player_id": "Epic Account Username",
+          "aggregated_sensors": "Enable Aggregated Sensors"
         }
       }
     },

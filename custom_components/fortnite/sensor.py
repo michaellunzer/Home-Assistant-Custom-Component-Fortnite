@@ -97,7 +97,7 @@ class FortniteSensor(CoordinatorEntity, SensorEntity):
         
         # Set up the sensor properties
         platform_display = self._get_platform_display_name(platform)
-        self._attr_name = f"{config_entry.data['player_id']} {platform_display} {game_mode.title()} {sensor_info['name']}"
+        self._attr_name = f"Fortnite {config_entry.data['player_id']} {platform_display} {game_mode.title()} {sensor_info['name']}"
         self._attr_unique_id = f"{config_entry.entry_id}_{config_entry.data['player_id']}_{platform}_{game_mode}_{sensor_key}"
         self._attr_icon = sensor_info["icon"]
         self._attr_native_unit_of_measurement = sensor_info["unit"]
@@ -131,7 +131,7 @@ class FortniteAggregatedSensor(CoordinatorEntity, SensorEntity):
         
         # Set up the sensor properties
         aggregated_display = AGGREGATED_SENSOR_TYPES[aggregated_type]
-        self._attr_name = f"{config_entry.data['player_id']} {aggregated_display} {sensor_info['name']}"
+        self._attr_name = f"Fortnite {config_entry.data['player_id']} {aggregated_display} {sensor_info['name']}"
         self._attr_unique_id = f"{config_entry.entry_id}_{config_entry.data['player_id']}_{aggregated_type}_{sensor_key}"
         self._attr_icon = sensor_info["icon"]
         self._attr_native_unit_of_measurement = sensor_info["unit"]
