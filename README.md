@@ -55,6 +55,9 @@ This is my first Home-Assistant Custom Component, so it's been a fun learning ex
 
 *Detailed sensor view showing wins, attributes, and real-time data from fortnite-api.com*
 
+### My Dashboard
+![Fortnite Dashboard](custom_components/fortnite/docs/Fortnite-Stats-Dashboard-Screenshot.png)
+
 **This component will set up the following platforms.**
 
 Platform | Description
