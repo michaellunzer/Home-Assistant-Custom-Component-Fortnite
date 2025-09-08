@@ -10,12 +10,15 @@ from homeassistant import config_entries
 from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResult
 
+from .const import CONF_AGGREGATED_SENSORS
+
 _LOGGER = logging.getLogger(__name__)
 
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
         vol.Required("api_key"): str,
         vol.Required("player_id"): str,
+        vol.Optional(CONF_AGGREGATED_SENSORS, default=True): bool,
     }
 )
 
