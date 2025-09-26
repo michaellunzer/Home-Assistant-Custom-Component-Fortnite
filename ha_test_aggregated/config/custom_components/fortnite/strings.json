@@ -1,0 +1,34 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Fortnite Stats Configuration",
+        "description": "Configure your Fortnite Stats integration",
+        "data": {
+          "api_key": "Fortnite API Key",
+          "player_id": "Epic Account Username",
+          "aggregated_sensors": "Enable Aggregated Sensors"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to connect to Fortnite API",
+      "invalid_auth": "Invalid API key or player ID",
+      "unknown": "Unknown error occurred"
+    },
+    "abort": {
+      "already_configured": "This player is already configured"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Fortnite Stats Options",
+        "description": "Configure Fortnite Stats options",
+        "data": {
+          "scan_interval": "Update interval (seconds)"
+        }
+      }
+    }
+  }
+}
