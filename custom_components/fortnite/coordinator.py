@@ -70,7 +70,6 @@ class FortniteDataUpdateCoordinator(DataUpdateCoordinator):
     async def _try_fortnite_api(self) -> dict[str, Any]:
         """Try to get data from fortnite-api.com for all configured platforms."""
         result = {
-            "using_real_api": True,
             "player_id": self.player_id,
             "platforms": self.platforms,
             "game_modes": self.game_modes
@@ -152,7 +151,6 @@ class FortniteDataUpdateCoordinator(DataUpdateCoordinator):
     async def _get_mock_data(self) -> dict[str, Any]:
         """Get mock data for all platforms."""
         result = {
-            "using_real_api": False,
             "player_id": self.player_id,
             "platforms": self.platforms,
             "game_modes": self.game_modes

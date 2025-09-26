@@ -247,7 +247,6 @@ class FortniteAggregatedSensor(CoordinatorEntity, SensorEntity):
             "player_id": self._config_entry.data["player_id"],
             "aggregated_type": self._aggregated_type,
             "aggregated_display": AGGREGATED_SENSOR_TYPES[self._aggregated_type],
-            "using_real_api": self.coordinator.data.get("using_real_api", False),
             "platforms_included": self._get_platforms_included(),
             "modes_included": self._get_modes_included(),
         }
