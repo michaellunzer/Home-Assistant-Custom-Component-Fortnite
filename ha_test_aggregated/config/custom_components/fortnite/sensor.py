@@ -110,6 +110,65 @@ class FortniteSensor(CoordinatorEntity, SensorEntity):
         }
         return platform_names.get(platform, platform.title())
 
+    @property
+    def native_value(self) -> float | int | None:
+        """Return the state of the sensor."""
+        if not self.coordinator.data:
+            return None
+            
+        # Map sensor keys to data keys
+        data_mapping = {
+            "eliminations": "kills",
+            "wins": "top1",
+            "matches": "matches",
+            "win_rate": "win_ratio",
+            "kd": "kd",
+            "top10": "top10",
+            "top25": "top25",
+            "score": "score",
+            "minutes_played": "minutes_played"
+        }
+        
+        data_key = data_mapping.get(self._sensor_key)
+        if not data_key:
+            return None
+            
+        # Get platform data
+        platform_data = self.coordinator.data.get(self._platform, {})
+        mode_data = platform_data.get(self._game_mode, {})
+        
+        value = mode_data.get(data_key, 0)
+        
+        # Handle special cases
+        if self._sensor_key == "win_rate" and value is not None:
+            # Convert decimal to percentage
+            return round(value * 100, 1)
+        elif self._sensor_key == "kd" and value is not None:
+            # Round K/D ratio to 3 decimal places
+            return round(value, 3)
+        
+        return value if value is not None else 0
+
+    @property
+    def extra_state_attributes(self) -> dict[str, Any]:
+        """Return the state attributes."""
+        if not self.coordinator.data:
+            return {}
+        
+        platform_data = self.coordinator.data.get(self._platform, {})
+        mode_data = platform_data.get(self._game_mode, {})
+        
+        return {
+            "player_id": self._config_entry.data["player_id"],
+            "platform": self._platform,
+            "platform_display": self._get_platform_display_name(self._platform),
+            "game_mode": self._game_mode,
+            "using_real_api": self.coordinator.data.get("using_real_api", True),
+            "last_modified": mode_data.get("last_modified", ""),
+            "kills_per_match": mode_data.get("kpg", 0),
+            "score_per_match": mode_data.get("score_per_match", 0),
+        }
+
 
 class FortniteAggregatedSensor(CoordinatorEntity, SensorEntity):
     """Representation of an aggregated Fortnite Stats sensor."""
@@ -247,7 +306,7 @@ class FortniteAggregatedSensor(CoordinatorEntity, SensorEntity):
             "player_id": self._config_entry.data["player_id"],
             "aggregated_type": self._aggregated_type,
             "aggregated_display": AGGREGATED_SENSOR_TYPES[self._aggregated_type],
-            "using_real_api": self.coordinator.data.get("using_real_api", False),
+            "using_real_api": self.coordinator.data.get("using_real_api", True),
             "platforms_included": self._get_platforms_included(),
             "modes_included": self._get_modes_included(),
         }
