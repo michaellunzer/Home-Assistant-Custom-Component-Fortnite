@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "Fortnite Stats",
-        "description": "Enter your fortnite-api.com API key and Epic display name. Get a free API key at https://fortnite-api.com/",
+        "description": "Enter your fortnite-api.com API key and your Epic display name. A free API key can be generated from the fortnite-api.com dashboard.",
         "data": {
           "api_key": "Fortnite API key",
           "player_id": "Epic account username",
