@@ -112,41 +112,59 @@ Your Epic username is the display name you use in Fortnite. This is different fr
 
 ### What You Get
 
-The integration automatically creates **54 sensors** covering all platforms and game modes:
+All entities are grouped under a single **device** per player. By default the
+integration enables the **All Inputs** sensors — these report the same lifetime
+totals you see on sites like [fortnitetracker.com](https://fortnitetracker.com/),
+because they include every input type and every game mode (Solo, Duo, Squad,
+**and** Limited-Time Modes).
 
-**Platforms:**
-- **Console** (Xbox, PlayStation, Nintendo Switch)
+**Input types** (per-input breakdowns are created but disabled by default — enable
+them from the entity settings if you want them):
+- **All Inputs** – combined lifetime totals *(enabled by default)*
+- **Console** (Xbox, PlayStation, Nintendo Switch – gamepad)
 - **PC** (Keyboard & Mouse)
 
 **Game Modes:**
-- **Solo** - Individual battle royale matches
-- **Duo** - Two-player team matches  
-- **Squad** - Four-player team matches
+- **Overall** – every mode combined, including LTM
+- **Solo** / **Duo** / **Squad**
 
 **Stats for Each Combination:**
-- Eliminations, Wins, Matches, Win Rate, K/D Ratio
+- Eliminations, Deaths, Wins, Matches, Win Rate, K/D Ratio, Eliminations Per Match
 - Top 10 Finishes, Top 25 Finishes, Score, Minutes Played
+
+Counting stats (eliminations, wins, matches, score, …) carry a
+`total_increasing` state class, so Home Assistant records **long-term statistics**
+and you can graph them over time.
 
 ### Example Sensors Created
 
-For username `Captain_Crunch88`, you'll get sensors like:
-- `sensor.captain_crunch88_console_squad_eliminations`
-- `sensor.captain_crunch88_console_squad_wins`
-- `sensor.captain_crunch88_pc_solo_eliminations`
-- `sensor.captain_crunch88_console_duo_win_rate`
-- And 50 more...
+For username `Captain_Crunch88`, the sensors enabled by default look like:
+- `sensor.fortnite_captain_crunch88_all_inputs_overall_eliminations`
+- `sensor.fortnite_captain_crunch88_all_inputs_overall_wins`
+- `sensor.fortnite_captain_crunch88_all_inputs_solo_kd_ratio`
+- `sensor.fortnite_captain_crunch88_all_inputs_squad_win_rate`
+
+### Why don't the numbers match fortnitetracker?
+
+Use the **All Inputs / Overall** sensors. Earlier versions only summed
+Solo + Duo + Squad, which omits Limited-Time Modes and therefore always read low
+compared to the site's lifetime totals. The **Overall** figures come straight
+from the API's combined block and match one-to-one.
 
 
 ## Features
 
-- **Real-time Updates**: Automatic updates every 5 minutes
-- **Multiple Platforms**: Tracks both Console and PC gameplay
-- **All Game Modes**: Solo, Duo, and Squad statistics
-- **Comprehensive Stats**: 9 different statistics per platform/mode combination
-- **Modern Architecture**: Built for Home Assistant 2024+ with async/await patterns
+- **Accurate Lifetime Totals**: "All Inputs / Overall" sensors match fortnitetracker.com
+- **Updates every 5 minutes** from [fortnite-api.com](https://fortnite-api.com/)
+- **Per-input breakdowns**: Console and PC stats available (disabled by default)
+- **All Game Modes**: Overall, Solo, Duo, and Squad statistics
+- **Long-term statistics**: counting sensors feed Home Assistant's statistics engine
+- **Device grouping**: all entities live under one device per player
+- **Re-authentication**: prompts for a new API key if the current one expires
+- **Modern Architecture**: config entry `runtime_data`, `DataUpdateCoordinator`, fully async
 - **Easy Setup**: Just API key and username - no complex configuration
 
-## This custom-component (v2.0.0) is compatible with Home Assistant 2023.1.0 and later
+## Compatibility: Home Assistant 2024.12.0 and later
 
 **⚠️ Breaking Change**: Version 2.0.0 introduces significant changes. See the [Migration Guide](MIGRATION_GUIDE.md) for upgrade instructions.
 
